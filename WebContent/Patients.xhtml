@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:mp="http://primefaces.org/ui/material"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+    
+<h:head>
+
+<script name="jquery/jquery.js" library="primefaces"></script>
+<title>Patient list</title>
+
+</h:head>
+<h:body style="background-image: url(background.jpg)">
+<p:tabMenu activeIndex="#{param.i}" style="width: 1500px;">
+                        <p:menuitem style="font-size: 20px;" value="Main page" outcome="index.xhtml" icon="ui-icon-home">
+                            <f:param name="i" value="0" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Patients" outcome="Patients.xhtml" icon="ui-icon-circle-plus">
+                            <f:param name="i" value="1" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Visits" outcome="Visits.xhtml" icon="ui-icon-clipboard">
+                            <f:param name="i" value="2" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Screening" outcome="Screening.xhtml" icon="ui-icon-document">
+                            <f:param name="i" value="3" />
+                        </p:menuitem>
+                    </p:tabMenu>
+                    <br/>
+                    
+     
+                    
+    <h:form id="jsfexample" >
+    <p:panel header="Fill in the form with the new patients data:">
+     <p:messages autoUpdate="true"/>
+    
+    	<h:panelGrid columns="3" cellpadding="5">
+    	
+    	<p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="patientId" value="ID: " />
+        <p:inputText style="width: 120%;" id="patientId" value="#{database.newPatientId}" required="true" label="Id"/>
+         <p:tooltip for="patientId" value="Patient ID" trackMouse="true"/> 
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="name" value="Name: " />
+        <p:inputText style="width: 120%;" id="name" value="#{database.newPatientName}" placeholder="Patient name" required="true" label="Name"><f:validateLength minimum = "2" /></p:inputText>
+        <p:tooltip for="name" value="Patient name" trackMouse="true"/> 
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="gender" value="Gender:" />
+        <p:selectOneRadio id="gender" value="#{database.newPatientGender}" required="true">
+            <f:selectItem itemLabel="Male" itemValue="Male" />
+            <f:selectItem itemLabel="Female" itemValue="Female" />
+        </p:selectOneRadio><br/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="socialSec" value="Social security number: " /> 
+        <p:inputText style="width: 120%;" id="socialSec" value="#{database.newPatientSocialSec}" required="true" label="Social security number"><f:validateLongRange minimum="9" /></p:inputText>
+        <p:tooltip for="socialSec" value="Social security number (9 numbers)" trackMouse="true"/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="birthDate" value="Birth date: " />
+        <p:inputMask style="width: 120%;" id="birthDate" value="#{database.newPatientBirthDate}" mask="99/99/9999" placeholder="mm/dd/yyyy" required="true" ></p:inputMask>
+        <p:tooltip for="birthDate" value="Patients birth date" trackMouse="true"/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="pills" value="Pills: " />
+        <p:inputText style="width: 120%;" id="pills" value="#{database.newPatientPills}" placeholder="Pills" />
+        <p:tooltip for="pills" value="Pills for the patient" trackMouse="true"/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="treatments" value="Treatments" />
+        <p:inputText style="width: 120%;" id="treatments" value="#{database.newPatientTreatments}" placeholder="Treatments..." />
+        <p:tooltip for="treatments" value="Treaments for the patient" trackMouse="true"/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="artefact" value="The artefacts" />
+        <p:inputText style="width: 120%;" id="artefact" value="#{database.newPatientArtefact}" placeholder="Artefacts..." />
+        <p:tooltip for="artefact" value="Artefacts of the patient" trackMouse="true"/>
+        
+        
+        </h:panelGrid>
+       <p:commandButton style="font-size: 20px; margin-right:10px;" value="Submit" id="click" actionListener="#{database.editPatient()}" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlg98').show()" icon="ui-icon-check" update=":table:tagTable" validateClient="true"/><br/>
+       </p:panel>
+       
+       <p:dialog style="font-size: 20px;" header="Result" widgetVar="dlg98" minWidth="600" minHeight="200">
+    <h:outputText value="Success!"/>
+	</p:dialog>
+       </h:form>
+       
+   
+       
+       <div align="right">
+       <h:form id="delete">
+    	<h:panelGrid columns="3" cellpadding="5">
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="deletePatientById" value="ID: " />
+        <p:inputText id="deletePatientById" value="#{database.deletePatientById}" required="true" /><p:tooltip for="deletePatientById" value="Give the ID!" trackMouse="true"/>
+       <p:commandButton style="font-size: 20px;" value="Delete" id="click" actionListener="#{database.deletePatient()}" onclick="PF('dlg97').show();" icon="ui-icon-closethick" update=":table:tagTable"/><br/>
+       </h:panelGrid>
+       <p:dialog header="Result" widgetVar="dlg97" minHeight="40">
+    <h:outputText value="Successfully deleted the patient!" />
+	</p:dialog>
+       </h:form>
+       </div>
+       
+        <h:form id="table" > 
+                        <p:dataTable id="tagTable" value="#{database.ListPatients()}" var="tag" paginator="true" rows="9" rowKey="#{tag.patientId}" selectionMode="single">
+                            <p:column headerText="ID" sortBy="#{tag.patientId}" filterBy="#{tag.patientId}" filterMatchMode="exact">
+                                #{tag.patientId}  
+                            </p:column>
+                            <p:column headerText="Name" sortBy=" #{tag.name}" filterBy="#{tag.name}" filterMatchMode="exact">
+                                #{tag.name}
+                            </p:column>
+                            <p:column headerText="Gender" sortBy=" #{tag.gender}" filterBy="#{tag.gender}" filterMatchMode="exact">
+                                #{tag.gender}
+                            </p:column>
+                            <p:column headerText="Social security number" sortBy="#{tag.socialSec}" filterBy="#{tag.socialSec}" filterMatchMode="exact">
+                                #{tag.socialSec}
+                            </p:column>
+                            <p:column headerText="Birth date" sortBy=" #{tag.birthDate}" filterBy="#{tag.birthDate}" filterMatchMode="exact">
+                                #{tag.birthDate}
+                            </p:column>
+                            <p:column headerText="Pills" sortBy=" #{tag.pills}" filterBy="#{tag.pills}" filterMatchMode="exact">
+                                #{tag.pills}
+                            </p:column>
+                            <p:column headerText="Treatments" sortBy=" #{tag.treatments}" filterBy="#{tag.treatments}" filterMatchMode="exact">
+                                #{tag.treatments}
+                            </p:column>
+                            <p:column headerText="Artefact" sortBy=" #{tag.artefact}" filterBy="#{tag.artefact}" filterMatchMode="exact">
+                                #{tag.artefact}
+                            </p:column>
+                            <p:column headerText="Diagnosis" sortBy=" #{tag.diagnosis}" filterBy="#{tag.diagnosis}" filterMatchMode="exact">
+                                #{tag.diagnosis}
+                            </p:column>
+                            <p:column headerText="Visit date" sortBy=" #{tag.visitDate}" filterBy="#{tag.visitDate}" filterMatchMode="exact">
+                                #{tag.visitDate}
+                            </p:column>
+                            
+                        </p:dataTable>
+                    </h:form>
+                    
+         
+        
+ 
+        
+    
+</h:body>
+</html>

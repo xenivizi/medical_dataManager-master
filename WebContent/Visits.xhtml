@@ -1,0 +1,159 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:mp="http://primefaces.org/ui/material" 
+    xmlns:p="http://primefaces.org/ui">  
+    
+<h:head>
+<script name="jquery/jquery.js" library="primefaces"></script>
+<title>Visits</title>
+</h:head>
+<h:body style="background-image: url(background.jpg)">
+<p:tabMenu activeIndex="#{param.i}" style="width: 1500px;">
+                        <p:menuitem style="font-size: 20px;" value="Main page" outcome="index.xhtml" icon="ui-icon-home">
+                            <f:param name="i" value="0" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Patients" outcome="Patients.xhtml" icon="ui-icon-circle-plus">
+                            <f:param name="i" value="1" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Visits" outcome="Visits.xhtml" icon="ui-icon-clipboard">
+                            <f:param name="i" value="2" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Screening" outcome="Screening.xhtml" icon="ui-icon-document">
+                            <f:param name="i" value="3" />
+                        </p:menuitem>
+                    </p:tabMenu>
+                    <br/>
+                    
+       <h:form id="jsfe">
+    
+    <p:panel header="List patients data by Social security number:">
+     <p:messages autoUpdate="true"/>
+    	<h:panelGrid columns="3" cellpadding="5">
+    	
+    	<p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="socialSec" value="Patients social security number: " />
+        <p:inputText id="socialSec" value="#{database.newPatientSocialSec}" required="true" label="socialSecurity" ><f:validateLongRange minimum="9" />
+        </p:inputText><p:tooltip for="socialSec" value="Patients social security number" trackMouse="true"/>
+             </h:panelGrid>
+       <p:commandButton style="font-size: 20px;" value="Submit" id="clickh" actionListener="#{database.ListPatientsBySocialSec(database.newPatientSocialSec)}" update=":table2:tagTable2" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlg96').show()" icon="ui-icon-check"  validateClient="true"/><br/>
+        </p:panel>
+        
+        <p:dialog header="Result" widgetVar="dlg96" minWidth="200" minHeight="80">
+    <h:outputText value="Success!" />
+	</p:dialog>
+        </h:form>
+        
+        
+        
+        <h:form id="table2" > 
+                        <p:dataTable id="tagTable2" value="#{database.ListPatientsBySocialSec(database.newPatientSocialSec)}" var="tag" paginator="true" rows="9" rowKey="tag.socialSec" selectionMode="single">
+                            
+                             <p:column headerText="Social security number" sortBy=" #{tag.socialSec}" filterBy="#{tag.socialSec}" filterMatchMode="exact">
+                                #{tag.socialSec}
+                            </p:column>
+                            <p:column headerText="Pills" sortBy=" #{tag.pills}" filterBy="#{tag.pills}" filterMatchMode="exact">
+                                #{tag.pills}
+                            </p:column>
+                            <p:column headerText="Treatments" sortBy=" #{tag.treatments}" filterBy="#{tag.treatments}" filterMatchMode="exact">
+                                #{tag.treatments}
+                            </p:column>
+                            <p:column headerText="Artefact" sortBy=" #{tag.artefact}" filterBy="#{tag.artefact}" filterMatchMode="exact">
+                                #{tag.artefact}
+                            </p:column>
+                           
+                            
+                        </p:dataTable>
+                    </h:form>
+                    
+                    
+      
+    <h:form id="jsfexample">
+    
+    <p:panel header="Add new data to patient by social security number:">
+     <p:messages autoUpdate="true"/>
+    	<h:panelGrid columns="3" cellpadding="5">
+    	
+    	<p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="socialSec" value="Patients social security number: " />
+        <p:inputText id="socialSec" value="#{database.newPatientSocialSec}" required="true" label="Social security number" ><f:validateLongRange minimum="9" />
+        </p:inputText><p:tooltip for="socialSec" value="Patients social security number" trackMouse="true"/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="pills" value="Pills to take: " />
+        <p:inputText id="pills" value="#{database.newPatientPills}" required="true" placeholder="Pills" label="Pills" /><p:tooltip for="pills" value="Pills for the patient" trackMouse="true"/>
+        
+		<p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="treatments" value="The treatments: " />
+        <p:inputText id="treatments" value="#{database.newPatientTreatments}" placeholder="Treatments" /><p:tooltip for="treatments" value="Treatments for the patient" trackMouse="true"/>
+       
+       	<p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="artefact" value="The artefacts: " />
+        <p:inputText style="width: 120%;" id="artefact" value="#{database.newPatientArtefact}" placeholder="Artefacts" /><p:tooltip for="artefact" value="Artefacts of the patient" trackMouse="true"/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="diagnosis" value="The diagnosis: " />
+        <p:inputText style="width: 120%;" id="diagnosis" value="#{database.newPatientDiagnosis}" placeholder="Update diagnosis..." /><p:tooltip for="diagnosis" value="Diagnosis of the patient" trackMouse="true"/>
+        
+        <p:outputLabel style="font-size: 18px; font-weight: bold; border-bottom: 1px solid blue;" for="visitDate" value="Visit date: " />
+        <p:inputMask style="width: 120%;" id="visitDate" value="#{database.newPatientVisitDate}" mask="99/99/9999" placeholder="mm/dd/yyyy" required="true" ></p:inputMask>
+     
+       </h:panelGrid>
+       <p:commandButton style="font-size: 20px;" value="Submit" id="c" actionListener="#{database.editVisits()}" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlg1').show()" icon="ui-icon-check" update=":table:tagTable" validateClient="true"/><br/>
+        </p:panel>
+        
+       <p:dialog header="Result" widgetVar="dlg1" minHeight="40">
+    <h:outputText value="Success!" />
+	</p:dialog>
+       </h:form>
+
+       
+       <h:form id="table" > 
+                        <p:dataTable id="tagTable" value="#{database.ListPatients()}" var="tag" paginator="true" rows="9" rowKey="#{tag.patientId}" selectionMode="single">
+                            <p:column headerText="ID" sortBy="#{tag.patientId}" filterBy="#{tag.patientId}" filterMatchMode="exact">
+                                #{tag.patientId}  
+                            </p:column>
+                            <p:column headerText="Name" sortBy=" #{tag.name}" filterBy="#{tag.name}" filterMatchMode="exact">
+                                #{tag.name}
+                            </p:column>
+                            <p:column headerText="Gender" sortBy=" #{tag.gender}" filterBy="#{tag.gender}" filterMatchMode="exact">
+                                #{tag.gender}
+                            </p:column>
+                            <p:column headerText="Social security number" sortBy="#{tag.socialSec}" filterBy="#{tag.socialSec}" filterMatchMode="exact">
+                                #{tag.socialSec}
+                            </p:column>
+                            <p:column headerText="Birth date" sortBy=" #{tag.birthDate}" filterBy="#{tag.birthDate}" filterMatchMode="exact">
+                                #{tag.birthDate}
+                            </p:column>
+                            <p:column headerText="Pills" sortBy=" #{tag.pills}" filterBy="#{tag.pills}" filterMatchMode="exact">
+                                #{tag.pills}
+                            </p:column>
+                            <p:column headerText="Treatments" sortBy=" #{tag.treatments}" filterBy="#{tag.treatments}" filterMatchMode="exact">
+                                #{tag.treatments}
+                            </p:column>
+                            <p:column headerText="Artefact" sortBy=" #{tag.artefact}" filterBy="#{tag.artefact}" filterMatchMode="exact">
+                                #{tag.artefact}
+                            </p:column>
+                            <p:column headerText="Diagnosis" sortBy=" #{tag.diagnosis}" filterBy="#{tag.diagnosis}" filterMatchMode="exact">
+                                #{tag.diagnosis}
+                            </p:column>
+                             <p:column headerText="Visit date" sortBy=" #{tag.visitDate}" filterBy="#{tag.visitDate}" filterMatchMode="exact">
+                                #{tag.visitDate}
+                            </p:column>
+                            
+                        </p:dataTable>
+                    </h:form>
+                    
+        
+       
+        
+        
+  <script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+        
+    
+</h:body>
+</html>

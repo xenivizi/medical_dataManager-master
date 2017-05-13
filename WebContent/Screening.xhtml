@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:mp="http://primefaces.org/ui/material" 
+    xmlns:p="http://primefaces.org/ui">  
+    
+<h:head>
+<script name="jquery/jquery.js" library="primefaces"></script>
+<title>Screening</title>
+</h:head>
+<h:body style="background-image: url(background.jpg)">
+<p:tabMenu activeIndex="#{param.i}" style="width: 1500px;">
+                        <p:menuitem style="font-size: 20px;" value="Main page" outcome="index.xhtml" icon="ui-icon-home">
+                            <f:param name="i" value="0" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Patients" outcome="Patients.xhtml" icon="ui-icon-circle-plus">
+                            <f:param name="i" value="1" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Visits" outcome="Visits.xhtml" icon="ui-icon-clipboard">
+                            <f:param name="i" value="2" />
+                        </p:menuitem>
+                        <p:menuitem style="font-size: 20px;" value="Screening" outcome="Screening.xhtml" icon="ui-icon-document">
+                            <f:param name="i" value="3" />
+                        </p:menuitem>
+                        
+                    </p:tabMenu>
+                    <br/>
+
+       
+       	<h1 style="text-align:left; font-size: 30px; font-weight: bold; border-bottom: 2px solid blue;"> Examinations: </h1>
+        <p style="text-align:center; font-size: 25px; font-weight: bold; border-bottom: 1px solid blue;">Lung screening once per year for over 18 year olds</p>
+        <h:form id="table2" > 
+                        <p:dataTable id="tagTable2" value="#{database.ListVisitsOver18()}" var="tag" paginator="true" rows="9" rowKey="#{tag.visitPatientId}"  selectionMode="single">
+                            <p:column headerText="ID" sortBy=" #{tag.visitPatientId}" filterBy="#{tag.visitPatientId}" filterMatchMode="exact">
+                                #{tag.visitPatientId}
+                            </p:column>
+                            <p:column headerText="Name" sortBy=" #{tag.visitPatientName}" filterBy="#{tag.visitPatientName}" filterMatchMode="exact">
+                                #{tag.visitPatientName}
+                            </p:column>
+                            <p:column headerText="Gender" sortBy="#{tag.visitPatientGender}" filterBy="#{tag.visitPatientGender}" filterMatchMode="exact">
+                                #{tag.visitPatientGender}
+                            </p:column>
+                            <p:column headerText="Social security number" sortBy="#{tag.visitPatientSocialSec}" filterBy="#{tag.visitPatientSocialSec}" filterMatchMode="exact">
+                                #{tag.visitPatientSocialSec}
+                            </p:column>
+                            <p:column headerText="Age" sortBy="#{tag.visitPatientAge}" filterBy="#{tag.visitPatientAge}" filterMatchMode="exact">
+                                #{tag.visitPatientAge}
+                            </p:column>
+                            
+		            
+                            
+                        </p:dataTable>
+                    </h:form>
+                    
+                    
+         <p style="text-align:center; font-size: 25px; font-weight: bold; border-bottom: 1px solid blue;">Prostate examination every 2 years for males older than 35 years</p>
+        <h:form id="table3" > 
+                        <p:dataTable id="tagTable3" value="#{database.ListVisitsOver35Male()}" var="tag" paginator="true" rows="9" rowKey="#{tag.visitPatientId}"  selectionMode="single">
+                            <p:column headerText="ID" sortBy=" #{tag.visitPatientId}" filterBy="#{tag.visitPatientId}" filterMatchMode="exact">
+                                #{tag.visitPatientId}
+                            </p:column>
+                            <p:column headerText="Name" sortBy=" #{tag.visitPatientName}" filterBy="#{tag.visitPatientName}" filterMatchMode="exact">
+                                #{tag.visitPatientName}
+                            </p:column>
+                            <p:column headerText="Gender" sortBy="#{tag.visitPatientGender}" filterBy="#{tag.visitPatientGender}" filterMatchMode="exact">
+                                #{tag.visitPatientGender}
+                            </p:column>
+                            <p:column headerText="Social security number" sortBy="#{tag.visitPatientSocialSec}" filterBy="#{tag.visitPatientSocialSec}" filterMatchMode="exact">
+                                #{tag.visitPatientSocialSec}
+                            </p:column>
+                            <p:column headerText="Age" sortBy="#{tag.visitPatientAge}" filterBy="#{tag.visitPatientAge}" filterMatchMode="exact">
+                                #{tag.visitPatientAge}
+                            </p:column>
+		            
+                            
+                        </p:dataTable>
+                    </h:form>
+        
+        
+        <p style="text-align:center; font-size: 25px; font-weight: bold; border-bottom: 1px solid blue;">Mammography examination every 3 years for females older than 45 years</p>
+        <h:form id="table4" > 
+                        <p:dataTable id="tagTable4" value="#{database.ListVisitsOver45Female()}" var="tag" paginator="true" rows="9" rowKey="#{tag.visitPatientId}"  selectionMode="single">
+                            <p:column headerText="ID" sortBy=" #{tag.visitPatientId}" filterBy="#{tag.visitPatientId}" filterMatchMode="exact">
+                                #{tag.visitPatientId}
+                            </p:column>
+                            <p:column headerText="Name" sortBy=" #{tag.visitPatientName}" filterBy="#{tag.visitPatientName}" filterMatchMode="exact">
+                                #{tag.visitPatientName}
+                            </p:column>
+                            <p:column headerText="Gender" sortBy="#{tag.visitPatientGender}" filterBy="#{tag.visitPatientGender}" filterMatchMode="exact">
+                                #{tag.visitPatientGender}
+                            </p:column>
+                            <p:column headerText="Social security number" sortBy="#{tag.visitPatientSocialSec}" filterBy="#{tag.visitPatientSocialSec}" filterMatchMode="exact">
+                                #{tag.visitPatientSocialSec}
+                            </p:column>
+                            <p:column headerText="Age" sortBy="#{tag.visitPatientAge}" filterBy="#{tag.visitPatientAge}" filterMatchMode="exact">
+                                #{tag.visitPatientAge}
+                            </p:column>
+		            
+                            
+                        </p:dataTable>
+                    </h:form>
+                    
+                    
+                    <p style="text-align:center; font-size: 25px; font-weight: bold; border-bottom: 1px solid blue;">General examination every 5 years</p>
+        <h:form id="table5" > 
+                        <p:dataTable id="tagTable5" value="#{database.ListVisitsEvery5()}" var="tag" paginator="true" rows="9" rowKey="#{tag.visitPatientId}"  selectionMode="single">
+                            <p:column headerText="ID" sortBy=" #{tag.visitPatientId}" filterBy="#{tag.visitPatientId}" filterMatchMode="exact">
+                                #{tag.visitPatientId}
+                            </p:column>
+                            <p:column headerText="Name" sortBy=" #{tag.visitPatientName}" filterBy="#{tag.visitPatientName}" filterMatchMode="exact">
+                                #{tag.visitPatientName}
+                            </p:column>
+                            <p:column headerText="Gender" sortBy="#{tag.visitPatientGender}" filterBy="#{tag.visitPatientGender}" filterMatchMode="exact">
+                                #{tag.visitPatientGender}
+                            </p:column>
+                            <p:column headerText="Social security number" sortBy="#{tag.visitPatientSocialSec}" filterBy="#{tag.visitPatientSocialSec}" filterMatchMode="exact">
+                                #{tag.visitPatientSocialSec}
+                            </p:column>
+                            <p:column headerText="Age" sortBy="#{tag.visitPatientAge}" filterBy="#{tag.visitPatientAge}" filterMatchMode="exact">
+                                #{tag.visitPatientAge}
+                            </p:column>
+		            
+                            
+                        </p:dataTable>
+                    </h:form>
+        
+  <script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+        
+    
+</h:body>
+</html>

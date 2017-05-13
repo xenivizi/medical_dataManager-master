@@ -1,0 +1,8 @@
+create database medical_dataManager;
+use medical_dataManager;
+
+create table Patients(patientId int(100) not null AUTO_INCREMENT, name char(50), gender char(15), socialSec char(50), birthDate char(12), pills char(250), treatments char(250), artefact char(100), diagnosis char(200), visitDate char(12), primary key(patientId));
+
+create table Visits(visitPatientId int not null AUTO_INCREMENT, visitPatientName char(50), visitPatientGender char(20), visitPatientSocialSec char(50), visitPatientAge int, primary key(visitPatientId));
+
+

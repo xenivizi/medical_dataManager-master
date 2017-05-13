@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:mp="http://primefaces.org/ui/material"
+    xmlns:p="http://primefaces.org/ui">  
+
+<h:head>
+<title>Main page</title>
+</h:head>
+<h:body style="background-image: url(blue.jpg); background-repeat: no-repeat;"> 
+
+<h:form>
+    <p:growl id="messages" showDetail="true"/>
+    <p:dialog header="Login" widgetVar="dlg" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username" value="Username:" />
+            <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
+ 
+            <h:outputLabel for="password" value="Password:" />
+            <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Login" update="growl" actionListener="#{userLoginView.login}"
+                                 oncomplete="handleLoginRequest(xhr, status, args)" ajax="false" action="index.xhtml?faces-redirect=true" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+    <p:menuButton value="Navigate" icon="ui-icon-home">
+        <p:menuitem value="Medical database" onclick="PF('dlg').show();" icon="ui-icon-extlink"/>
+    </p:menuButton>
+</h:form>
+
+<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+<br/>
+                    <h1 style="text-align:center; font-size: 50px; font-weight: bold; border-bottom: 3px solid blue; color: white;"> Medical data management</h1>
+                    <center><img src="login.png"/></center>
+                    <h3 style="text-align:center; color: white; font-size: 30px;">Information Systems Development</h3>
+                    <h4 style="text-align:center; color: white; font-size: 22px;">Vizi Xénia, CRZLQ6  </h4>
+                    
+</h:body>
+</html>
